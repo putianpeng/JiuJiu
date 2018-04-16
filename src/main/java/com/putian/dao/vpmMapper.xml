@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.putian.dao.vpmMapper">
+  	<select id="svpmComment" resultType="com.putian.domain.VpmComment">
+  		select*from vpmComment where vpmId=#{vpmId};
+  	</select>
+  	<insert id="iaddComment" parameterType="com.putian.domain.VpmComment">
+  		insert into vpmComment(vpmId,commentContext,userId,userNickName,userHeadImg,commentDate) values(#{vpmId},#{commentContext},#{userId},#{userNickName},#{userHeadImg},#{commentDate});
+  	</insert>
+  	<select id="suserComment" resultType="com.putian.domain.UserComment">
+  		select*from userComment where vpmId=#{vpmId} and commentUserId=#{commentUserId} and replyCommentId=#{replyCommentId};
+  	</select>
+  	<insert id="iaddUserComment" parameterType="com.putian.domain.UserComment">
+  		insert into userComment(vpmId,commentContext,userId,userNickName,userHeadImg,commentUserId,replyCommentId,commentDate) values(#{vpmId},#{commentContext},#{userId},#{userNickName},#{userHeadImg},#{commentUserId},#{replyCommentId},#{commentDate});
+  	</insert>
+  	<update id="uaddUserCommentNum">
+  		update vpmComment set commentNum=commentNum+1 where commentId=#{commentId};
+  	</update>
+  	<update id="uaddVpmCommentNum">
+  		update vpm set commentNum=commentNum+1 where vpmId=#{vpmId};
+  	</update>
+  	
+  	
+  	<update id="uvpmClickGood">
+  		update vpm set clickGoodNum=clickGoodNum+1 where vpmId=#{vpmId};
+  	</update>
+  	<update id="uvpmClickBad">
+  		update vpm set clickBadNum=clickBadNum+1 where vpmId=#{vpmId};
+  	</update>
+  	<update id="ucommentClickGood">
+  		update vpmComment set clickGoodNum=clickGoodNum+1 where commentId=#{commentId};
+  	</update>
+  	<update id="uuserCommentClickGood">
+  		update userComment set clickGoodNum=clickGoodNum+1 where commentId=#{commentId};
+  	</update>
+  	
+  	
+  	
+  	<select id="svideo" resultType="com.putian.domain.Video">
+  		select*from vpm where vpmCategory='Video' limit #{startNum},10;
+  	</select>
+  	
+  	<select id="smusic" resultType="com.putian.domain.Music">
+  		select*from vpm where vpmCategory='Music' limit #{startNum},10;
+  	</select>
+  	
+  	<select id="sphoto" resultType="com.putian.domain.Photo">
+  		select*from vpm where vpmCategory='Photo' limit #{startNum},10;
+  	</select>
+  	
+  	<select id="svpm" resultType="com.putian.domain.Vpm">
+  		select*from vpm limit #{startNum},10;
+  	</select>
+  	
+  	<select id="smyVpm" resultType="com.putian.domain.Vpm">
+  		select*from vpm where userName=#{username};
+  	</select>
+  	
+  	<select id="svpmUsername" resultType="java.lang.String">
+  		select userName from vpm where vpmId=#{vpmId};
+  	</select>
+  	
+  	<delete id="dvpm">
+  		delete from vpm where vpmId=#{vpmId};
+  	</delete>
+  	<insert id="avpm" parameterType="com.putian.domain.Vpm">
+  		insert into vpm(vpmId,userName,userNickName,vpmPath,vpmContext,vpmDate,vpmCategory) values(#{vpmId},#{userName},#{userNickName},#{vpmPath},#{vpmContext},#{vpmDate},#{vpmCategory});
+  	</insert>
+  	
+  	<select id="spathByVpmId" resultType="java.lang.String">
+  		select vpmPath from vpm where vpmId = #{vpmId};
+  	</select>
+  	
+  </mapper>

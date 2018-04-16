@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.putian.dao.userMapper">
+  	<select id="suser" resultType="com.putian.domain.User">
+  		select * from user where username=#{username};
+  	</select>
+  	<select id="suserLogin" resultType="com.putian.domain.User">
+  		select * from user where username=#{username} and password = #{password};
+  	</select>
+  	<select id="srootUserLogin">
+  		select * from root_user where username=#{username} and password = #{password};
+  	</select>
+  	<insert id="iaddUser" parameterType="com.putian.domain.User">
+  		insert into user(userid,username,password,nickName,registDate) values(?,?,?,?);
+  	</insert>
+  	<update id="alterUser" parameterType="com.putian.domain.User">
+  		update user set nickName=#{nickName},gender=#{gender},age=#{age},tel=#{tel},birth=#{birth} where userid=#{userid};
+  	</update>
+  </mapper>
